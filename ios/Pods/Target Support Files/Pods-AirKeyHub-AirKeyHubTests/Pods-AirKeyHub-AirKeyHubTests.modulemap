@@ -1,0 +1,6 @@
+module Pods_AirKeyHub_AirKeyHubTests {
+  umbrella header "Pods-AirKeyHub-AirKeyHubTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

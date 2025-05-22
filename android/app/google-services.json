@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "397181316299",
+    "project_id": "airkeyhub-f12e3",
+    "storage_bucket": "airkeyhub-f12e3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397181316299:android:57b8ffabfcd7d33a8bbf4e",
+        "android_client_info": {
+          "package_name": "com.airkeyhub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD0GWbHH3mhgVrSsPQUchTpxNQtoFYrnFs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
