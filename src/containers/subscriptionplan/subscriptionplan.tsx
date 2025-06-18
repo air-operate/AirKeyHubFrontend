@@ -21,6 +21,7 @@ import Colors from '@assets/colors/Colors';
 import SubscriptionPlansList from 'src/components/list/SubscriptionPlansList';
 import VoucherModal from 'src/components/modal/voucherModal';
 import { getCouponAPI } from 'src/redux/actions/getCoupons';
+import ToggleTabs from 'src/components/list/ToggleTab';
 
 const SubscriptionPlanScreen = (props: any) => {
   const { navigation } = props;
@@ -39,6 +40,7 @@ const SubscriptionPlanScreen = (props: any) => {
   );
   const [couponModal, setCouponModal] = useState(false);
   const [coupon, setCoupon] = useState<any>(null);
+  const [durationTab, setTab] = useState('Month');
 
   React.useEffect(() => {
     dispatch(getCouponAPI());
@@ -131,12 +133,14 @@ const SubscriptionPlanScreen = (props: any) => {
           <View style={styles.header}>
             <AirKeyHeader onPressBack={navigation.goBack} />
             <Text style={styles.title}>{translate('subscriptionPlan')}</Text>
+            <ToggleTabs initialTab={durationTab} onTabChange={(tab) => { setTab(tab); if (tab !== durationTab) setSelectedItem(null) }} />
             <SubscriptionPlansList
               selectedItem={selectedItem}
               onPress={handleSub}
               plans={plans?.data?.subscription_plans ?? []}
               coupon={coupon ?? undefined}
               localCurrencyPrice={plans?.data?.local_currency_price}
+              planDuration={durationTab}
             />
             {renderVoucher()}
           </View>

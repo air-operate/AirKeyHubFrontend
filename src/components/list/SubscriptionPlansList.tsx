@@ -1,11 +1,9 @@
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import React from 'react';
 import Colors from '@assets/colors/Colors';
 import { DataEntity, couponListData } from 'src/typings/global';
 import { heightPercentageToDP as hp } from '@assets/sizes/Sizes';
 import { fonts } from '@assets/fonts';
-import { getData } from 'src/asyncstorage';
 
 type props = {
   selectedItem: DataEntity | null;
@@ -13,10 +11,12 @@ type props = {
   onPress: (item: any) => void;
   coupon?: couponListData;
   localCurrencyPrice?: number;
+  planDuration?: string;
 };
 
 const SubscriptionPlansList = (props: props) => {
-  const { selectedItem, plans, onPress, coupon, localCurrencyPrice } = props;
+  const { selectedItem, plans, onPress, coupon, localCurrencyPrice, planDuration } = props;
+
   // const [currencyCode, setCurrencyCode] = useState('GBP');
 
   // useEffect(() => {
@@ -59,6 +59,8 @@ const SubscriptionPlansList = (props: props) => {
       data={plans}
       contentContainerStyle={styles.gap}
       renderItem={({ item }) => {
+        if (item.type?.toString().toLowerCase() !== planDuration?.toLowerCase())
+          return null;
         const isSelected = selectedItem && selectedItem._id === item._id;
 
         return (
