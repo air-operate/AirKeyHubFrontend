@@ -71,22 +71,22 @@ const KeyCatalogList = (props: Props) => {
                   keyId: item._id,
                 });
               } else if (
-                item.subscription_active_status === 'canceled' &&
-                !item.stripe_subscription_status
+                item.subscription_active_status === 'canceled'
+                // !item.stripe_subscription_status
               ) {
                 navigation.navigate(RouteNames.keyDetailPage.name, {
                   keyId: item._id,
                 });
-              } else if (
-                item.subscription_active_status === 'canceled' &&
-                item.stripe_subscription_status
-              ) {
-                Alert.alert(
-                  'Your subscription has been canceled. Access to your key is no longer available.'
-                );
+              // } else if (
+              //   item.subscription_active_status === 'canceled' &&
+              //   item.stripe_subscription_status
+              // ) {
+              //   Alert.alert(
+              //     'Your subscription has been canceled. Access to your key is no longer available.'
+              //   );
               } else {
                 Alert.alert(
-                  'Your subscription is incomplete. Access to your key is not available.'
+                  'Your payment is incomplete. Access to your key will be available once the payment is complete.'
                 );
               }
             };

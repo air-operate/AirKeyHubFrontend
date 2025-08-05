@@ -1,9 +1,11 @@
-import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import Colors from '@assets/colors/Colors';
 import { DataEntity, couponListData } from 'src/typings/global';
 import { heightPercentageToDP as hp } from '@assets/sizes/Sizes';
 import { fonts } from '@assets/fonts';
+import { getData } from 'src/asyncstorage';
 
 type props = {
   selectedItem: DataEntity | null;
@@ -16,7 +18,6 @@ type props = {
 
 const SubscriptionPlansList = (props: props) => {
   const { selectedItem, plans, onPress, coupon, localCurrencyPrice, planDuration } = props;
-
   // const [currencyCode, setCurrencyCode] = useState('GBP');
 
   // useEffect(() => {

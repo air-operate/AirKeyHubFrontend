@@ -1,5 +1,5 @@
 import Colors from '@assets/colors/Colors';
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 
 type Props = {
