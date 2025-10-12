@@ -20,5 +20,6 @@ module.exports = {
       },
     ],
     ['@babel/plugin-transform-react-jsx', { runtime: 'automatic' }],
+    ['@babel/plugin-transform-private-methods', { loose: true }],
   ],
 };

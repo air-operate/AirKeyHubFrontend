@@ -10,7 +10,7 @@ if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage.capitalize}ally linked Frameworks".green
   use_frameworks! :linkage => linkage.to_sym
 end
-
+ 
 target 'AirKeyHub' do
   project 'AirKeyHub'
   config = use_native_modules!
@@ -24,18 +24,18 @@ target 'AirKeyHub' do
   pod 'FirebaseInstallations', :modular_headers => true
   pod 'GoogleDataTransport', :modular_headers => true
   pod 'nanopb', :modular_headers => true
-
+ 
   use_react_native!(
     :path => config[:reactNativePath],
     :hermes_enabled => true,
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
-
+ 
   target 'AirKeyHubTests' do
     inherit! :complete
     # Pods for testing
   end
-
+ 
   post_install do |installer|
     react_native_post_install(
       installer,

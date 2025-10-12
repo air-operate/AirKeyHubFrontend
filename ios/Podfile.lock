@@ -1039,8 +1039,6 @@ PODS:
     - React-Core
   - react-native-encrypted-storage (4.0.3):
     - React-Core
-  - react-native-get-random-values (1.11.0):
-    - React-Core
   - react-native-maps (1.10.1):
     - React-Core
   - react-native-mmkv (2.12.2):
@@ -1268,8 +1266,6 @@ PODS:
     - RNNotifee/NotifeeCore (= 7.9.0)
   - RNNotifee/NotifeeCore (7.9.0):
     - React-Core
-  - RNPermissions (5.4.0):
-    - React-Core
   - RNReanimated (3.15.3):
     - glog
     - RCT-Folly (= 2022.05.16.00)
@@ -1391,7 +1387,6 @@ DEPENDENCIES:
   - react-native-camera (from `../node_modules/react-native-camera`)
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-encrypted-storage (from `../node_modules/react-native-encrypted-storage`)
-  - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-mmkv (from `../node_modules/react-native-mmkv`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
@@ -1429,7 +1424,6 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
   - "RNNotifee (from `../node_modules/@notifee/react-native`)"
-  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - "RNSentry (from `../node_modules/@sentry/react-native`)"
@@ -1537,8 +1531,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-date-picker"
   react-native-encrypted-storage:
     :path: "../node_modules/react-native-encrypted-storage"
-  react-native-get-random-values:
-    :path: "../node_modules/react-native-get-random-values"
   react-native-maps:
     :path: "../node_modules/react-native-maps"
   react-native-mmkv:
@@ -1613,8 +1605,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-crop-picker"
   RNNotifee:
     :path: "../node_modules/@notifee/react-native"
-  RNPermissions:
-    :path: "../node_modules/react-native-permissions"
   RNReanimated:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
@@ -1741,8 +1731,8 @@ SPEC CHECKSUMS:
   StripePaymentsUI: 2d1a2bd3c88735e003342f4c8d9d7aa25d7613c0
   StripeUICore: d8d6fdcbc77bd8697052501452cbb0fcf1bc6840
   TOCropViewController: 80b8985ad794298fb69d3341de183f33d1853654
-  Yoga: 13c8ef87792450193e117976337b8527b49e8c03
+  Yoga: e64aa65de36c0832d04e8c7bd614396c77a80047
 
 PODFILE CHECKSUM: a469698e432f2a8239b704324fc218c52c3dbd48
 
-COCOAPODS: 1.16.2
+COCOAPODS: 1.15.2
