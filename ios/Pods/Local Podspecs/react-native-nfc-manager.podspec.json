@@ -18,9 +18,7 @@
     "ios": "8.0"
   },
   "dependencies": {
-    "React-Core": [
-
-    ]
+    "React-Core": []
   },
   "xcconfig": {
     "OTHER_LDFLAGS": "-weak_framework CoreNFC"

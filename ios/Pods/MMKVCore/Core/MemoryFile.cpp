@@ -35,7 +35,6 @@
 #    include <sys/file.h>
 #    include <dirent.h>
 #    include <cstring>
-#    include <unistd.h>
 #    include <filesystem>
 
 using namespace std;
@@ -158,7 +157,7 @@ MMKVFileHandle_t MemoryFile::getFd() {
     return m_diskFile.getFd();
 }
 
-bool MemoryFile::truncate(size_t size) {
+bool MemoryFile::truncate(size_t size, FileLock *fileLock) {
     if (m_isMayflyFD) {
         openIfNeeded();
     }
@@ -218,7 +217,7 @@ bool MemoryFile::truncate(size_t size) {
             MMKVError("fail to munmap [%s], %s", m_diskFile.m_path.c_str(), strerror(errno));
         }
     }
-    return mmapOrCleanup();
+    return mmapOrCleanup(fileLock);
 }
 
 bool MemoryFile::msync(SyncFlag syncFlag) {
@@ -236,7 +235,7 @@ bool MemoryFile::msync(SyncFlag syncFlag) {
     return false;
 }
 
-bool MemoryFile::mmapOrCleanup() {
+bool MemoryFile::mmapOrCleanup(FileLock *fileLock) {
     auto oldPtr = m_ptr;
     auto mode = m_readOnly ? PROT_READ : (PROT_READ | PROT_WRITE);
     m_ptr = (char *) ::mmap(m_ptr, m_size, mode, MAP_SHARED, m_diskFile.m_fd, 0);
@@ -248,6 +247,10 @@ bool MemoryFile::mmapOrCleanup() {
         return false;
     }
     MMKVInfo("mmap to address [%p], oldPtr [%p], [%s]", m_ptr, oldPtr, m_diskFile.m_path.c_str());
+
+    if (m_isMayflyFD && fileLock) {
+        fileLock->destroyAndUnLock();
+    }
 
     cleanMayflyFD();
     return true;
@@ -279,17 +282,9 @@ void MemoryFile::reloadFromFile(size_t expectedCapacity) {
 
             size_t roundSize = ((m_size / DEFAULT_MMAP_SIZE) + 1) * DEFAULT_MMAP_SIZE;;
             roundSize = std::max<size_t>(expectedSize, roundSize);
-            truncate(roundSize);
-
-            if (m_isMayflyFD) {
-                fileLock.destroyLock();
-            }
+            truncate(roundSize, &fileLock);
         } else {
-            mmapOrCleanup();
-
-            if (m_isMayflyFD) {
-                fileLock.destroyLock();
-            }
+            mmapOrCleanup(&fileLock);
         }
 #    ifdef MMKV_IOS
         if (!m_readOnly) {

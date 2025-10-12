@@ -1,8 +1,10 @@
+# === Required for Flipper integration ===
 require_relative '../node_modules/react-native/scripts/react_native_pods'
- 
-platform :ios, '15.0'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+platform :ios, '16.0'
 prepare_react_native_project!
- 
+
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
   Pod::UI.puts "Configuring Pod with #{linkage.capitalize}ally linked Frameworks".green
@@ -12,7 +14,8 @@ end
 target 'AirKeyHub' do
   project 'AirKeyHub'
   config = use_native_modules!
- 
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-maps', :path => rn_maps_path
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
