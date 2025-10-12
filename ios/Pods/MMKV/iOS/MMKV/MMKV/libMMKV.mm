@@ -90,7 +90,8 @@ static BOOL g_hasCalledInitializeMMKV = NO;
         MMKVWarning("already called +initializeMMKV before, ignore this request");
         return [self mmkvBasePath];
     }
-    g_callbackHandler = handler;
+    [g_callbackHandler release];
+    g_callbackHandler = [handler retain];
     mmkv::LogHandler logHandler = nullptr;
     if (g_callbackHandler && [g_callbackHandler respondsToSelector:@selector(mmkvLogWithLevel:file:line:func:message:)]) {
         g_isLogRedirecting = true;
@@ -354,6 +355,13 @@ static BOOL g_hasCalledInitializeMMKV = NO;
 
 - (void)trim {
     m_mmkv->trim();
+}
+
+- (size_t)importFrom:(MMKV *)src {
+    if (!src) {
+        return 0;
+    }
+    return m_mmkv->importFrom(src->m_mmkv);
 }
 
 #pragma mark - encryption & decryption
@@ -1035,7 +1043,8 @@ static NSString *md5(NSString *value) {
 
 + (void)registerHandler:(id<MMKVHandler>)handler {
     SCOPED_LOCK(g_lock);
-    g_callbackHandler = handler;
+    [g_callbackHandler release];
+    g_callbackHandler = [handler retain];
 
     if ([g_callbackHandler respondsToSelector:@selector(mmkvLogWithLevel:file:line:func:message:)]) {
         g_isLogRedirecting = true;
@@ -1054,6 +1063,7 @@ static NSString *md5(NSString *value) {
     SCOPED_LOCK(g_lock);
 
     g_isLogRedirecting = false;
+    [g_callbackHandler release];
     g_callbackHandler = nil;
 
     mmkv::MMKV::unRegisterLogHandler();
@@ -1156,7 +1166,7 @@ static NSString *md5(NSString *value) {
     return [self removeStorage:mmapID rootPath:rootPath];
 }
 
-+ (BOOL)checkExist:(NSString *)mmapID rootPath:(nullable NSString *)path NS_SWIFT_NAME(removeStorage(for:rootPath:)) {
++ (BOOL)checkExist:(NSString *)mmapID rootPath:(nullable NSString *)path NS_SWIFT_NAME(checkExist(for:rootPath:)) {
     if (mmapID.length > 0) {
         if (path.length > 0) {
             string rootPath(path.UTF8String);
@@ -1168,7 +1178,7 @@ static NSString *md5(NSString *value) {
     return NO;
 }
 
-+ (BOOL)checkExist:(NSString *)mmapID mode:(MMKVMode)mode NS_SWIFT_NAME(removeStorage(for:mode:)) {
++ (BOOL)checkExist:(NSString *)mmapID mode:(MMKVMode)mode NS_SWIFT_NAME(checkExist(for:mode:)) {
     auto rootPath = (mode & MMKVSingleProcess) ? nil : g_groupPath;
     return [self checkExist:mmapID rootPath:rootPath];
 }

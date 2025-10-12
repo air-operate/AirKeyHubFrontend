@@ -1,15 +1,9 @@
-react_native_pods_path = Pod::Executable.execute_command('node', ['-p',
-  'require.resolve(
-    "react-native/scripts/react_native_pods.rb",
-    {paths: [process.argv[1]]},
-  )', __dir__]).strip
+# === Required for Flipper integration ===
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-require react_native_pods_path
-
-platform :ios, '15.0'
+platform :ios, '16.0'
 prepare_react_native_project!
-
-flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
 
 linkage = ENV['USE_FRAMEWORKS']
 if linkage != nil
@@ -20,7 +14,8 @@ end
 target 'AirKeyHub' do
   project 'AirKeyHub'
   config = use_native_modules!
-
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-maps', :path => rn_maps_path
   pod 'Firebase', :modular_headers => true
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
@@ -32,8 +27,7 @@ target 'AirKeyHub' do
 
   use_react_native!(
     :path => config[:reactNativePath],
-    :hermes_enabled => true, # <-- Fixed missing comma
-    :flipper_configuration => flipper_config,
+    :hermes_enabled => true,
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 

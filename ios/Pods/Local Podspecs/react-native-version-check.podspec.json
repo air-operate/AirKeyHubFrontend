@@ -19,8 +19,6 @@
     "LICENSE"
   ],
   "dependencies": {
-    "React-Core": [
-
-    ]
+    "React-Core": []
   }
 }

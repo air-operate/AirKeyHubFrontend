@@ -23,21 +23,13 @@
     "Sentry/HybridSDK": [
       "8.36.0"
     ],
-    "React-Core": [
-
-    ],
+    "React-Core": [],
     "RCT-Folly": [
       "2022.05.16.00"
     ],
-    "glog": [
-
-    ],
-    "React-hermes": [
-
-    ],
-    "hermes-engine": [
-
-    ]
+    "glog": [],
+    "React-hermes": [],
+    "hermes-engine": []
   },
   "pod_target_xcconfig": {
     "HEADER_SEARCH_PATHS": "\"$(PODS_ROOT)/boost\" \"$(PODS_ROOT)/Headers/Private/Yoga\"",

@@ -34,7 +34,7 @@
 #include <vector>
 #include <unordered_map>
 
-constexpr auto MMKV_VERSION = "v2.2.0";
+constexpr auto MMKV_VERSION = "v2.2.4";
 
 #ifdef DEBUG
 #    define MMKV_DEBUG
